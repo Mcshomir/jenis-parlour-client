@@ -4,6 +4,7 @@ import TreatmentSection from '../TreatmentSection/TreatmentSection';
 import SecreenSection from '../ScreenSection/SecreenSection';
 import Testmonial from '../Testmonial/Testmonial';
 import ContuctMessage from '../ContuctMessage/ContuctMessage';
+import SignUp from '../../Pages/SignUp/SignUp';
 
 const Home = () => {
     return (
@@ -13,6 +14,7 @@ const Home = () => {
             <SecreenSection></SecreenSection>
             <Testmonial></Testmonial>
             <ContuctMessage></ContuctMessage>
+
 
         </div>
     );

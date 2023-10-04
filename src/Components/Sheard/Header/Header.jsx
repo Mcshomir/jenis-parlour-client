@@ -1,10 +1,14 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import logoOne from '../../../assets/images/logo.png'
 import { Link } from 'react-router-dom';
 import Banner from '../../Home/Banner/Banner';
 import Button from '../Button/Button';
+import SignUp from '../../Pages/SignUp/SignUp';
+import SignIn from '../../Pages/SignIn/SignIn';
+import { AuthContext } from '../../../AuthProvider/AuthProvider';
 
 const Header = () => {
+    const { users, LogOutclick } = useContext(AuthContext)
     const navbarInfo = <>
         <li>
             <Link to='/'>Home</Link>
@@ -15,13 +19,23 @@ const Header = () => {
         <li>
             <Link to='/servies'>Services</Link>
         </li>
-        <li>
-            <Link to='/signin'>About</Link>
+        <li >
+            <Link to='/about'>About</Link>
         </li>
-        <li>
-            <Link to='/signup'>SingIn</Link>
+        <li >
+            <Link to='/contuct-us'>Contuct-Us</Link>
         </li>
+        {/* <li onClick={() => document.getElementById('signin-modal').showModal()}>
+            <Link to='/signin'>SingIn</Link>
+        </li> */}
     </>
+    const handleLogOutClick = () => {
+        LogOutclick()
+            .then(() => {
+
+            })
+            .catch(error => { console.error("logouterror", error) })
+    }
 
 
     return (
@@ -45,9 +59,20 @@ const Header = () => {
                     </ul>
                 </div>
                 <div className="navbar-end">
-                    <Button>SignUp</Button>
+                    {
+                        users?.uid ? <button onClick={handleLogOutClick} className='btn bg-gradient-to-r from-primary to-secondary text-white'>SignOut</button> : <label onClick={() => document.getElementById('signin-modal').showModal()} className="btn bg-gradient-to-r from-primary to-secondary text-white">
+                            SignIn
+                        </label>
+                    }
+
                 </div>
-            </div>
+                {/* onClick={() => document.getElementById('signin-modal').showModal()} */}
+
+
+
+                <SignUp></SignUp>
+                <SignIn></SignIn>
+            </div >
 
         </>
     );

@@ -79,7 +79,7 @@ const SignUp = () => {
                             <input className='btn btn-primary w-full' type="submit" value="SignUp" />
                             {/* <p><small>already have an account? <Link onClick={() => document.getElementById('signin-modal').showModal()} className='text-primary' >Plz SignIn  </Link></small></p> */}
                             <div className="divider">OR</div>
-                            <button className='btn btn-outline '> CONTINUE WITH GOOGLE !</button>
+                            <button className='btn btn-outline ' > CONTINUE WITH GOOGLE !</button>
 
                         </form>
 

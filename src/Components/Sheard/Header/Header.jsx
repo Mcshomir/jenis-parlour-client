@@ -6,6 +6,7 @@ import Button from '../Button/Button';
 import SignUp from '../../Pages/SignUp/SignUp';
 import SignIn from '../../Pages/SignIn/SignIn';
 import { AuthContext } from '../../../AuthProvider/AuthProvider';
+import { FaStar } from 'react-icons/fa';
 
 const Header = () => {
     const { users, LogOutclick } = useContext(AuthContext)
@@ -20,11 +21,25 @@ const Header = () => {
             <Link to='/servies'>Services</Link>
         </li>
         <li >
-            <Link to='/about'>About</Link>
-        </li>
-        <li >
             <Link to='/contuct-us'>Contuct-Us</Link>
         </li>
+
+
+
+        {
+            users?.uid ? <li >
+                <Link to='/about'>About</Link>
+            </li> :
+                <li >
+                    <Link to='/signin'>Signin</Link>
+                </li>
+        }
+
+
+
+
+
+
         {/* <li onClick={() => document.getElementById('signin-modal').showModal()}>
             <Link to='/signin'>SingIn</Link>
         </li> */}
@@ -59,11 +74,21 @@ const Header = () => {
                     </ul>
                 </div>
                 <div className="navbar-end">
+
                     {
-                        users?.uid ? <button onClick={handleLogOutClick} className='btn bg-gradient-to-r from-primary to-secondary text-white'>SignOut</button> : <label onClick={() => document.getElementById('signin-modal').showModal()} className="btn bg-gradient-to-r from-primary to-secondary text-white">
-                            SignIn
-                        </label>
+                        users?.uid ? <>
+                            <div className="avatar online">
+                                <div className="w-14 rounded-full">
+                                    <img src={users?.email} />
+                                </div>
+                            </div>
+
+
+                            <span className='btn bg-gradient-to-r from-primary to-secondary text-white' onClick={handleLogOutClick}>SignOut</span>
+
+                        </> : < ><FaStar /> </>
                     }
+
 
                 </div>
                 {/* onClick={() => document.getElementById('signin-modal').showModal()} */}
@@ -71,7 +96,7 @@ const Header = () => {
 
 
                 <SignUp></SignUp>
-                <SignIn></SignIn>
+
             </div >
 
         </>

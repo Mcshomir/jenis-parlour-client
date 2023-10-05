@@ -34,16 +34,18 @@ const TreatmentSection = () => {
     return (
         <div className='grid md:grid-cols-3 shadow-xl grid-cols-1  gap-12   my-20'>
             {
-                treatmentCard.map(card => <>
-                    <div className="card w-96 bg-base-100 shadow-xl rounded-xl">
-                        <figure className="px-10 pt-10">
-                            <img src={card.icon} alt="Shoes" className="rounded-xl w-2/4" />
-                        </figure>
-                        <div className="card-body items-center text-center">
-                            <h2 className="card-title">{card.name}</h2>
-                            <p>Price: {card.price}</p>
-                            <p>{card.descriptions}</p>
+                treatmentCard.map(card => < >
+                    <div key={card.id}>
+                        <div className="card w-96 bg-base-100 shadow-xl rounded-xl">
+                            <figure className="px-10 pt-10">
+                                <img src={card.icon} alt="Shoes" className="rounded-xl w-2/4" />
+                            </figure>
+                            <div className="card-body items-center text-center">
+                                <h2 className="card-title">{card.name}</h2>
+                                <p>Price: {card.price}</p>
+                                <p>{card.descriptions}</p>
 
+                            </div>
                         </div>
                     </div>
                 </>

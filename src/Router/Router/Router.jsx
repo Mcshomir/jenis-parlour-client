@@ -3,6 +3,8 @@ import Header from "../../Components/Sheard/Header/Header";
 import Blog from "../../Components/Pages/Blog/Blog";
 import Main from "../../Layout/Main/Main";
 import Home from "../../Components/Home/Home/Home";
+import SignIn from "../../Components/Pages/SignIn/SignIn";
+
 
 export const router = createBrowserRouter([
     {
@@ -12,8 +14,13 @@ export const router = createBrowserRouter([
                 path: '/', element: <Home></Home>
             },
 
+
             {
                 path: '/blog', element: <Blog></Blog>
+            },
+
+            {
+                path: '/signin', element: <SignIn></SignIn>
             },
 
             {

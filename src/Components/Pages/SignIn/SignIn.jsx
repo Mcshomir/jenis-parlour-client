@@ -58,7 +58,7 @@ const SignIn = () => {
                             </div>
                             <div className="divider">OR</div>
 
-                            <button className='btn btn-outline ' onClick={() => document.getElementById('my_modal_4').showModal()}>Create an Account?</button>
+                            <span className='btn btn-outline ' onClick={() => document.getElementById('my_modal_4').showModal()}>Create an Account?</span>
                         </form>
                     </div>
                 </div>

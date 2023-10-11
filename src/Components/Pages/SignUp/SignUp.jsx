@@ -5,20 +5,65 @@ import { Link, useNavigate } from 'react-router-dom';
 
 const SignUp = () => {
     const { register, handleSubmit, formState: { errors } } = useForm()
-    const { users, handleCreateUsers } = useContext(AuthContext)
+    const { users, handleCreateUsers, updateUser } = useContext(AuthContext)
+    const navigate = useNavigate();
 
 
     const handleSubmitClick = (data) => {
-        console.log(data);
+        console.log("shomir", data);
         handleCreateUsers(data.email, data.password)
             .then(result => {
                 const user = result.user
                 console.log("this is signUp user", user)
+                const userInfo = { displayName: data.name, email: data.email, photoURL: data.photoURL, phoneNumber: data.number }
+                updateUser(userInfo)
+                    .then(() => {
+                        saveUser(data.name, data.email, data.photoURL, data.password)
+                        // navigate('/')
+
+
+                    })
+                    .catch(error => console.log(error));
+
+
 
             })
             .catch(error => console.error("createUser error", error))
 
     }
+
+    const saveUser = (name, email, photoURL, password) => {
+        const user = { name, email, photoURL, password }
+        fetch('http://localhost:5000/user', {
+            method: 'POST',
+            headers: {
+                "content-type": "application/json"
+            },
+            body: JSON.stringify(user)
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log("saveUserData", data)
+                getAccessToken(email)
+
+            })
+    }
+
+    const getAccessToken = user => {
+        fetch(`http://localhost:5000/jwt?user=${user}`)
+            .then(res => res.json())
+            .then(data => {
+                if (data.accessToken) {
+                    localStorage.setItem("accessToken", data.accessToken)
+                    navigate('/');
+                }
+                console.log("accessTokenData", data);
+            })
+    }
+
+
+
+
     return (
         <div>
 
@@ -43,7 +88,7 @@ const SignUp = () => {
 
                             <div className="form-control w-full max-w-xs">
                                 <label className="label"><span className="label-text">What's your name?</span>  </label>
-                                <input type="name" placeholder='Name' className="input input-bordered w-full max-w-xs" {...register('Name', { required: "Name is required" })} />
+                                <input type="name" placeholder='Name' className="input input-bordered w-full max-w-xs" {...register('name', { required: "Name is required" })} />
                                 <p
                                     className='text-red-400 text-sm'>{errors.Name?.message}</p>
 
@@ -56,6 +101,12 @@ const SignUp = () => {
                                 <p
                                     className='text-red-400 text-sm'>{errors.email?.message}</p>
                             </div>
+                            <div className="form-control w-full max-w-xs">
+                                <label className="label"><span className="label-text">What's your photoURL?</span>  </label>
+                                <input {...register("photoURL", { required: "E-mail  is required" })} type="text" className="input input-bordered w-full max-w-xs" placeholder='photoURL' />
+                                <p
+                                    className='text-red-400 text-sm'>{errors.photoURL?.message}</p>
+                            </div>
 
                             <div className="form-control w-full max-w-xs">
                                 <label className="label"><span className="label-text">Your password?</span>  </label>
@@ -67,8 +118,8 @@ const SignUp = () => {
 
                             <div className="form-control w-full max-w-xs">
                                 <label className="label"><span className="label-text">Phone number</span>  </label>
-                                <input {...register("phoneNumber", { required: "Phone number is required" })} type="number" className="input input-bordered w-full max-w-xs" placeholder='+88xxxxxxxxxx' />
-                                <p className='text-red-400 text-sm'>{errors.phoneNumber?.message}</p>
+                                <input {...register("number", { required: "Phone number is required" })} type="text" className="input input-bordered w-full max-w-xs" placeholder='+88xxxxxxxxxx' />
+                                <p className='text-red-400 text-sm'>{errors?.number?.message}</p>
 
                             </div>
 

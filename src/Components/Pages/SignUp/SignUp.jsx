@@ -1,37 +1,38 @@
 import React, { useContext } from 'react';
+import img from '../../../assets/images/signup.avif'
 import { useForm } from 'react-hook-form';
-import { AuthContext } from '../../../AuthProvider/AuthProvider';
 import { Link, useNavigate } from 'react-router-dom';
+import SignIn from '../SignIn/SignIn';
+import { AuthContext } from '../../../AuthProvider/AuthProvider';
+import toast from 'react-hot-toast';
 
 const SignUp = () => {
-    const { register, handleSubmit, formState: { errors } } = useForm()
-    const { users, handleCreateUsers, updateUser } = useContext(AuthContext)
-    const navigate = useNavigate();
-
-
-    const handleSubmitClick = (data) => {
-        console.log("shomir", data);
+    const navigate = useNavigate()
+    const { handleCreateUsers, updateUser } = useContext(AuthContext)
+    const { register, handleSubmit } = useForm()
+    const clickHandleSubmit = data => {
+        console.log("signUp", data)
+        const profile = {
+            displayName: data.name,
+            photoURL: data.photoURL
+        }
         handleCreateUsers(data.email, data.password)
+
             .then(result => {
-                const user = result.user
-                console.log("this is signUp user", user)
-                const userInfo = { displayName: data.name, email: data.email, photoURL: data.photoURL, phoneNumber: data.number }
-                updateUser(userInfo)
+                const user = result.user;
+                updateUser(profile)
                     .then(() => {
                         saveUser(data.name, data.email, data.photoURL, data.password)
-                        // navigate('/')
-
 
                     })
-                    .catch(error => console.log(error));
-
-
-
+                    .catch(e => console.log(e))
+                console.log("createUser", user)
+                toast.success("signup successfully !")
+                navigate('/')
             })
-            .catch(error => console.error("createUser error", error))
+            .catch(error => console.error("createUserError", error))
 
     }
-
     const saveUser = (name, email, photoURL, password) => {
         const user = { name, email, photoURL, password }
         fetch('http://localhost:5000/user', {
@@ -44,7 +45,7 @@ const SignUp = () => {
             .then(res => res.json())
             .then(data => {
                 console.log("saveUserData", data)
-                getAccessToken(email)
+                getAccessToken(data.email)
 
             })
     }
@@ -61,85 +62,57 @@ const SignUp = () => {
             })
     }
 
-
-
-
     return (
         <div>
+            <div className="hero min-h-screen bg-base-200">
+                <div className="hero-content flex-col lg:flex-row">
+                    <div className="text-center lg:text-left">
+                        <h1 className="text-5xl font-bold text-center ">SignUp!</h1>
+                        <img src={img} className='mt-3' alt="" />
+                    </div>
+                    <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
+                        <form onSubmit={handleSubmit(clickHandleSubmit)} className="card-body" >
+                            <div className="form-control">
+                                <label className="label">
+                                    <span className="label-text">Name</span>
+                                </label>
+                                <input {...register("name")} type="text" placeholder="name" className="input input-bordered" required />
+                            </div>
+                            <div className="form-control">
+                                <label className="label">
+                                    <span className="label-text">Email</span>
+                                </label>
+                                <input {...register("email")} type="email" placeholder="email" className="input input-bordered" required />
+                            </div>
+                            <div className="form-control">
+                                <label className="label">
+                                    <span className="label-text">PhotoURL</span>
+                                </label>
+                                <input {...register("photoURL")} type="text" placeholder="photoURL" className="input input-bordered" required />
+                            </div>
+                            <div className="form-control">
+                                <label className="label">
+                                    <span className="label-text">Password</span>
+                                </label>
+                                <input {...register("password")} type="password" placeholder="password" className="input input-bordered" required />
+                                <label className="label">
+                                    <a href="#" className="label-text-alt link link-hover">Forgot password?</a>
+                                </label>
+                            </div>
 
-            {/* You can open the modal using document.getElementById('ID').showModal() method */}
+                            <div className="form-control mt-6">
+                                <button className="btn btn-primary">SignUp</button>
+                                <small>If you have account <Link className='text-blue-400' onClick={() => document.getElementById('my_modal_5').showModal()}> please signin</Link></small>
 
-            <dialog id="my_modal_4" className="modal">
-                <div className="modal-box w-11/12 max-w-5xl">
 
-                    <div className="modal-action">
-                        <form method="dialog">
-                            {/* if there is a button, it will close the modal */}
-                            <button className="btn">X</button>
+                            </div>
+
+
                         </form>
                     </div>
-                    <div className='flex justify-center align-middle'>
-
-
-
-                        <form onSubmit={handleSubmit(handleSubmitClick)}>
-                            <h2 className='text-3xl ml-12'>SignUp !</h2>
-
-
-                            <div className="form-control w-full max-w-xs">
-                                <label className="label"><span className="label-text">What's your name?</span>  </label>
-                                <input type="name" placeholder='Name' className="input input-bordered w-full max-w-xs" {...register('name', { required: "Name is required" })} />
-                                <p
-                                    className='text-red-400 text-sm'>{errors.Name?.message}</p>
-
-
-                            </div>
-
-                            <div className="form-control w-full max-w-xs">
-                                <label className="label"><span className="label-text">What's your e-mail?</span>  </label>
-                                <input {...register("email", { required: "E-mail  is required" })} type="email" className="input input-bordered w-full max-w-xs" placeholder='E-mail' />
-                                <p
-                                    className='text-red-400 text-sm'>{errors.email?.message}</p>
-                            </div>
-                            <div className="form-control w-full max-w-xs">
-                                <label className="label"><span className="label-text">What's your photoURL?</span>  </label>
-                                <input {...register("photoURL", { required: "E-mail  is required" })} type="text" className="input input-bordered w-full max-w-xs" placeholder='photoURL' />
-                                <p
-                                    className='text-red-400 text-sm'>{errors.photoURL?.message}</p>
-                            </div>
-
-                            <div className="form-control w-full max-w-xs">
-                                <label className="label"><span className="label-text">Your password?</span>  </label>
-                                <input {...register("password", { required: "Password  is required", minLength: { value: 6, message: "Min length is 6" } })} type="password" className="input input-bordered w-full max-w-xs" placeholder='Password' />
-                                <p
-                                    className='text-red-400 text-sm'>{errors.password?.message}</p>
-
-                            </div>
-
-                            <div className="form-control w-full max-w-xs">
-                                <label className="label"><span className="label-text">Phone number</span>  </label>
-                                <input {...register("number", { required: "Phone number is required" })} type="text" className="input input-bordered w-full max-w-xs" placeholder='+88xxxxxxxxxx' />
-                                <p className='text-red-400 text-sm'>{errors?.number?.message}</p>
-
-                            </div>
-
-
-
-                            <br />
-
-                            <input className='btn btn-primary w-full' type="submit" value="SignUp" />
-                            {/* <p><small>already have an account? <Link onClick={() => document.getElementById('signin-modal').showModal()} className='text-primary' >Plz SignIn  </Link></small></p> */}
-                            <div className="divider">OR</div>
-                            <button className='btn btn-outline ' > CONTINUE WITH GOOGLE !</button>
-
-                        </form>
-
-
-                    </div>
-
-
                 </div>
-            </dialog>
+            </div>
+            <SignIn></SignIn>
         </div>
     );
 };

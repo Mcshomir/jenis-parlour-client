@@ -16,17 +16,16 @@ const TreatmentModal = ({ treatmentName, price }) => {
         fetch('http://localhost:5000/booking', {
             method: 'POST',
             headers: {
-                'content-type': 'application/json'
+                'content-type': 'application/json',
+
             },
             body: JSON.stringify(data)
         })
             .then(res => res.json())
             .then(bookingData => {
                 console.log(bookingData);
-                if (bookingData.acknowledged) {
-                    toast.success("Booked successfully")
+                alert(`${treatmentName} booked successfully !`)
 
-                }
             })
     }
 
@@ -43,6 +42,7 @@ const TreatmentModal = ({ treatmentName, price }) => {
                 <form onSubmit={handleSubmit(handleClick)} className="modal-box">
                     <h3 className="font-bold text-lg">Booking Form !</h3>
                     <input {...register("name")} defaultValue={users?.displayName} type="text" placeholder="Your name " className="input input-bordered w-full max-w-xs" />
+                    <input {...register("email")} defaultValue={users?.email} type="text" placeholder="Your name " className="input input-bordered w-full max-w-xs" />
 
                     <input {...register("treatmentName")} defaultValue={treatmentName} readOnly type="text" placeholder="Type here" className="input input-bordered w-full max-w-xs" />
                     <input {...register("price")} defaultValue={price} readOnly type="text" placeholder="Type here" className="input input-bordered w-full max-w-xs" />

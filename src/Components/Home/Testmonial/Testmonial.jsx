@@ -9,9 +9,9 @@ const Testmonial = () => {
 
         <div >
             <h2 className='text-4xl italic text-center mt-20 py-6'>Testmonial</h2>
-            <div className='grid grid-cols-1 md: grid-cols-3 mb-20'>
+            <div className='grid grid-cols-1 md: grid-cols-3 mb-20 gap-10'>
 
-                <div className="card w-96 bg-base-100 shadow-xl p-5">
+                <div className="card w-[320px] bg-base-100 shadow-xl ">
                     <div className='flex justify-center gap-6 align-middle'>
                         <figure >
                             <img src={img1} alt="Shoes" className="w-20 rounded-xl ring ring-primary ring-offset-base-100 ring-offset-2" />
@@ -22,7 +22,7 @@ const Testmonial = () => {
 
                         </div>
                     </div>
-                    <div className="card-body items-center text-center t">
+                    <div className="card-body items-center text-center ">
 
                         <p className='text-left'>If a dog chews shoes whose shoes does he choose? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus culpa dolor distinctio perspiciatis corrupti provident iusto autem nostrum voluptatibus obcaecati.</p>
 
@@ -41,7 +41,7 @@ const Testmonial = () => {
                     </div>
                 </div>
                 {/* card two */}
-                <div className="card w-96 bg-base-100 shadow-xl p-5">
+                <div className="card w-[320px] bg-base-100 shadow-xl ">
                     <div className='flex justify-center gap-6 align-middle'>
                         <figure >
                             <img src={img2} alt="Shoes" className="w-20 rounded-xl ring ring-primary ring-offset-base-100 ring-offset-2" />
@@ -52,7 +52,7 @@ const Testmonial = () => {
 
                         </div>
                     </div>
-                    <div className="card-body items-center text-center t">
+                    <div className="card-body items-center text-center ">
 
                         <p className='text-left'>If a dog chews shoes whose shoes does he choose? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus culpa dolor distinctio perspiciatis corrupti provident iusto autem nostrum voluptatibus obcaecati.</p>
 
@@ -72,7 +72,7 @@ const Testmonial = () => {
                 </div>
 
                 {/* card 3 */}
-                <div className="card w-96 bg-base-100 shadow-xl p-5">
+                <div className="card w-[320px] bg-base-100 shadow-xl">
                     <div className='flex justify-center gap-6 align-middle'>
                         <figure >
                             <img src={img3} alt="Shoes" className="w-20 rounded-xl ring ring-primary ring-offset-base-100 ring-offset-2" />
@@ -83,7 +83,7 @@ const Testmonial = () => {
 
                         </div>
                     </div>
-                    <div className="card-body items-center text-center t">
+                    <div className="card-body items-center text-center ">
 
                         <p className='text-left'>If a dog chews shoes whose shoes does he choose? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus culpa dolor distinctio perspiciatis corrupti provident iusto autem nostrum voluptatibus obcaecati.</p>
 

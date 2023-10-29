@@ -3,8 +3,7 @@ import logoOne from '../../../assets/images/logo.png'
 import { Link } from 'react-router-dom';
 import Banner from '../../Home/Banner/Banner';
 import Button from '../Button/Button';
-import SignUp from '../../Pages/SignUp/SignUp';
-import SignIn from '../../Pages/SignIn/SignIn';
+
 import { AuthContext } from '../../../AuthProvider/AuthProvider';
 import { FaStar } from 'react-icons/fa';
 
@@ -31,7 +30,7 @@ const Header = () => {
                 <Link to='/about'>About</Link>
             </li> :
                 <li >
-                    <Link to='/signin'>Signin</Link>
+                    <Link to='/signup'>SignUp</Link>
                 </li>
         }
 
@@ -56,7 +55,7 @@ const Header = () => {
     return (
         <>
 
-            <div className='navbar bg-orange-50 '>
+            <div className="navbar bg-orange-50 ">
                 <div className="navbar-start">
                     <div className="dropdown">
 
@@ -105,7 +104,7 @@ const Header = () => {
 
 
 
-                <SignUp></SignUp>
+
 
             </div >
 

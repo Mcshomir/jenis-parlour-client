@@ -1,69 +1,62 @@
 import { createBrowserRouter } from "react-router-dom";
-import Header from "../../Components/Sheard/Header/Header";
-import Blog from "../../Components/Pages/Blog/Blog";
 import Main from "../../Layout/Main/Main";
-import Home from "../../Components/Home/Home/Home";
-import SignIn from "../../Components/Pages/SignIn/SignIn";
-import PrivetRouter from "../PrivetRouter/PrivetRouter";
-import Dashboard from "../../Components/Pages/Dashboard/Dashboard";
-import DashboardLayout from "../../Layout/DashboardLayout";
-import DashboardUserLilst from "../../Components/Pages/Dashboard/DashboardUserLilst";
-import MakeAdmin from "../../Components/Pages/Dashboard/MakeAdmin";
-import Book from "../../Components/Pages/Dashboard/Book";
-import BookList from "../../Components/Pages/Dashboard/BookList";
-import DetailsOfTreatment from "../../Components/Home/TreatmentSection/DetailsOfTreatment";
 
+import AllHome from "../../Components/Home/AllHome";
+import SignUp from "../../Components/Pages/SignUp/SignUp";
+import DashboardLayout from "../../Layout/DashboardLayout";
+import Dashboard from "../../Components/Sheard/Dashboard/Dashboard";
+import AddService from "../../Components/Sheard/Dashboard/AddService";
+import PendingServices from "../../Components/Sheard/Dashboard/PendingServices";
+import PrivetRouter from "../PrivetRouter/PrivetRouter";
+import BookServices from "../../Components/Home/ServiceSection/bookServices";
+import Booked from "../../Components/Sheard/Dashboard/Booked";
+import AllUser from "../../Components/Sheard/Dashboard/AllUser";
 
 export const router = createBrowserRouter([
     {
         path: '/', element: <Main></Main>, children: [
+            { path: '/home', element: <AllHome></AllHome> },
 
             {
-                path: '/', element: <Home></Home>
-            },
-            {
-                path: '/home', element: <Home></Home>
-            },
-            {
-                path: '/services/:id',
-                loader: ({ params }) => fetch(`http://localhost:5000/services/${params.id}`),
-                element: <DetailsOfTreatment></DetailsOfTreatment>
-            },
+                path: '/bookservices/:_id',
+                element: <BookServices></BookServices>,
+                loader: ({ params }) => fetch(`http://localhost:5000/pending/${params._id}`)
 
 
-            {
-                path: '/blog', element: <Blog></Blog>
             },
-
             {
-                path: '/signin', element: <SignIn></SignIn>
+                path: '/signup', element: <SignUp></SignUp>
             },
-
             {
-                path: '/*', element: <h3>Not Found ! 403</h3>
+                path: '/*', element: <h1>Not Found ! 404</h1>
             }
-
         ]
     },
     {
         path: '/dashboard',
-        element: <PrivetRouter><DashboardLayout></DashboardLayout></PrivetRouter>,
+        element: <PrivetRouter> <DashboardLayout></DashboardLayout></PrivetRouter>,
         children: [
             {
                 path: '/dashboard',
-                element: <PrivetRouter><DashboardUserLilst></DashboardUserLilst></PrivetRouter>
-            },
-
-            {
-                path: '/dashboard/booklist',
-                element: <PrivetRouter><BookList></BookList></PrivetRouter>
+                element: <Dashboard></Dashboard>
             },
             {
-                path: '/dashboard/makeadmin',
-                element: <PrivetRouter><MakeAdmin></MakeAdmin></PrivetRouter>
+                path: '/dashboard/addservices/',
+                element: <AddService></AddService>
+            },
+            {
+                path: '/dashboard/pendingservices/',
+                element: <PendingServices></PendingServices>
+            },
+            {
+                path: '/dashboard/booked/',
+                element: <Booked></Booked>
+            },
+            {
+                path: '/dashboard/alluser/',
+                element: <AllUser></AllUser>
             }
         ]
 
     }
-
 ])
